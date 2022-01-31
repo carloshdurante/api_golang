@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: .dockerfile
+    image: api_golang
+    container_name: api_golang_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB: api_golang_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /var/lib/postgresql/data/api_golang
+    volumes:
+      - api_golang:/var/lib/postgresql/data
+
+volumes:
+  api_golang:
