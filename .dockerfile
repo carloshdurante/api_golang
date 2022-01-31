@@ -1,3 +1,11 @@
-FROM postgres:13.2
+FROM golang:1.17
 
-EXPOSE 5432
+WORKDIR /go/src/app
+
+COPY . .
+
+RUN go get -d -v ./...
+RUN go install -v ./...
+RUN go mod tidy
+
+CMD ["api_golang"]
